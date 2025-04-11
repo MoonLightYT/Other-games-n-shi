@@ -1,24 +1,62 @@
 local Library = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({
-    Title = "Fluent " .. Fluent.Version,
+
+local Window = Library:CreateWindow({
+    Title = "Fluent " .. Library.Version,
     SubTitle = "by dawid",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
-    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Acrylic = true, -- Set to false to disable blur
     Theme = "Dark",
-    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when there's no MinimizeKeybind
 })
--- Fluent provides Lucide Icons, they are optional
+
+-- Define tabs
 local Tabs = {
-    Main = Window:AddTab({ Title = "Ultra shake", Icon = "0" }),
-    }
-Tab.Main:AddButton({
+    Main = Window:AddTab({ Title = "Ultra Shake", Icon = "0" }),
+}
+
+-- Adding button to the Main tab
+Tabs.Main:AddButton({
     Title = "Auto Ultra Shake",
     Description = "Very important button",
     Callback = function()
         local player = game.Players.LocalPlayer
-    local Ultra Shake = player.Backpack:FindFirstChild("Ultra Shake")
-    local character = player.Character or player.CharacterAdded:Wait() -- Wait for character if not loaded
-    local Ultra Shake1 = character:FindFirstChild("Ultra Shake")
+        local ultraShake = player.Backpack:FindFirstChild("Ultra Shake") -- Renamed to avoid spaces
+        local character = player.Character or player.CharacterAdded:Wait() -- Wait for character if not loaded
+        local ultraShake1 = character:FindFirstChild("Ultra Shake") -- Renamed to avoid spaces
+
+        if ultraShake then
+            local function autoConsumeBoosts()
+    while true do
+        wait(1) -- Adjust the wait time as needed
+        local player = game.Players.LocalPlayer
+        local backpack = player.Backpack
+        for _, item in pairs(backpack:GetChildren()) do
+            if BoostSelections[item.Name] then
+                player.Character.Humanoid:EquipTool(item)
+                item:Activate()
+            end
+        end
+    end
+end
+            print("Found Ultra Shake in Backpack!")
+        elseif ultraShake1 then
+               local function autoConsumeBoosts()
+    while true do
+        wait(1) -- Adjust the wait time as needed
+        local player = game.Players.LocalPlayer
+        local backpack = player.Backpack
+        for _, item in pairs(backpack:GetChildren()) do
+            if BoostSelections[item.Name] then
+                player.Character.Humanoid:EquipTool(item)
+                item:Activate()
+            end
+        end
+    end
+end
+            print("Found Ultra Shake in Character!")
+        else
+            print("Ultra Shake not found")
+        end
     end
 })
