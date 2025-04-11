@@ -21,40 +21,27 @@ Tabs.Main:AddButton({
     Description = "Very important button",
     Callback = function()
         local player = game.Players.LocalPlayer
-        local ultraShake = player.Backpack:FindFirstChild("Ultra Shake") -- Renamed to avoid spaces
+        local ultraShakeInBackpack = player.Backpack:FindFirstChild("Ultra Shake")
         local character = player.Character or player.CharacterAdded:Wait() -- Wait for character if not loaded
-        local ultraShake1 = character:FindFirstChild("Ultra Shake") -- Renamed to avoid spaces
+        local ultraShakeInCharacter = character:FindFirstChild("Ultra Shake")
 
-        if ultraShake then
-            local function autoConsumeBoosts()
-    while true do
-        wait(1) -- Adjust the wait time as needed
-        local player = game.Players.LocalPlayer
-        local backpack = player.Backpack
-        for _, item in pairs(backpack:GetChildren()) do
-            if BoostSelections[item.Name] then
-                player.Character.Humanoid:EquipTool(item)
-                item:Activate()
-            end
-        end
-    end
-end
+        if ultraShakeInBackpack then
             print("Found Ultra Shake in Backpack!")
-        elseif ultraShake1 then
-               local function autoConsumeBoosts()
-    while true do
-        wait(1) -- Adjust the wait time as needed
-        local player = game.Players.LocalPlayer
-        local backpack = player.Backpack
-        for _, item in pairs(backpack:GetChildren()) do
-            if BoostSelections[item.Name] then
-                player.Character.Humanoid:EquipTool(item)
-                item:Activate()
-            end
-        end
-    end
-end
+            player.Character.Humanoid:EquipTool(ultraShakeInBackpack)
+        elseif ultraShakeInCharacter then
             print("Found Ultra Shake in Character!")
+            local function autoConsumeBoosts()
+                while true do
+                    wait(1) -- Adjust the wait time as needed
+                    for _, item in pairs(player.Backpack:GetChildren()) do
+                        if item.Name == "Ultra Shake" then -- Check if the item's name matches
+                            player.Character.Humanoid:EquipTool(item)
+                            item:Activate()
+                        end
+                    end
+                end
+            end
+            autoConsumeBoosts() -- Start consuming boosts
         else
             print("Ultra Shake not found")
         end
