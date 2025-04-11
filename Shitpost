@@ -1,0 +1,24 @@
+local Library = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local Window = Fluent:CreateWindow({
+    Title = "Fluent " .. Fluent.Version,
+    SubTitle = "by dawid",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Dark",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+-- Fluent provides Lucide Icons, they are optional
+local Tabs = {
+    Main = Window:AddTab({ Title = "Ultra shake", Icon = "0" }),
+    }
+Tab.Main:AddButton({
+    Title = "Auto Ultra Shake",
+    Description = "Very important button",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+    local Ultra Shake = player.Backpack:FindFirstChild("Ultra Shake")
+    local character = player.Character or player.CharacterAdded:Wait() -- Wait for character if not loaded
+    local Ultra Shake1 = character:FindFirstChild("Ultra Shake")
+    end
+})
